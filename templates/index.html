@@ -2,7 +2,7 @@
 
 {% block title %}
     {{ super() }}
-    <h1>welcome to School administrate</h1>
+    welcome to School administrate
 {% endblock %}
 
 {% block page_content %}
@@ -10,8 +10,10 @@
     <h1>Welcome Everyone!</h1>
     <div class="list-group">
     {% for klass in klasses %}
-        <a href="#" class="list-group-item active">
-            {{ klass }}
+        {# 做选中样式判断 #}
+        <a href="#" class="list-group-item {% if loop.first %}active{% endif %}">
+        <span class="badge">{{ klass.number }}</span>
+            {{ klass.name }}
         </a>
     {% endfor %}
     </div>
