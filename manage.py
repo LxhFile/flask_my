@@ -25,10 +25,10 @@ manager = Manager(app)
 manager.add_command('db',MigrateCommand)
 
 # 老师对班级,中间表(多对多)
-# teacher_klass = db.Table('teacher_klass',
-#                          db.Column('teacher_id', db.Integer, db.ForeignKey('teacher_id')),
-#                          db.Column('klass_id', db.Integer, db.ForeignKey('klass_id'))
-#                          )
+teacher_klass = db.Table('teacher_klass',
+                         db.Column('teacher_id', db.Integer, db.ForeignKey('teacher.id')),
+                         db.Column('klass_id', db.Integer, db.ForeignKey('klass.id'))
+                         )
 
 class Klass(db.Model):
     '''
@@ -44,15 +44,15 @@ class Klass(db.Model):
     def __repr__(self):
         return f'<klass {self.name}>'
 
-# class Teacher(db.Model):
-#     '''
-#     id : 老师工号
-#     name : 老师名字
-#     klass : 老师任教班级
-#     '''
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(16), nullable=False)
-#     klasses = db.relationship('Klass', secondary=teacher_klass, backref=db.backref('teachers'))
+class Teacher(db.Model):
+    '''
+    id : 老师工号
+    name : 老师名字
+    klass : 老师任教班级
+    '''
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(16), nullable=False)
+    klasses = db.relationship('Klass', secondary=teacher_klass, backref=db.backref('teachers', lazy='dynamic'), lazy=True)
 
 
 @manager.command
