@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ super() }}
+    <h1>welcome to School administrate</h1>
+{% endblock %}
+
+{% block page_content %}
+    {{ super() }}
+    <h1>Welcome Everyone!</h1>
+    <div class="list-group">
+    {% for klass in klasses %}
+        <a href="#" class="list-group-item active">
+            {{ klass }}
+        </a>
+    {% endfor %}
+    </div>
+{% endblock %}
